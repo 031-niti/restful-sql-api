@@ -1,6 +1,7 @@
-const express = require('express');
-const cors = require('cors');
-const sql = require('./models/db');
+const express = require("express");
+const cors = require("cors");
+const restaurantRoute = require("./routes/restaurant.route")
+
 const PORT = 5000;
 
 //สร้าง service
@@ -10,11 +11,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
-
-app.get("/", (req,res)=>{
-    res.send("<h1>This is the restaurant API</h1>");
+app.get("/", (req,res) => {
+    res.send("<h1>This is a restaurant API</h1>")
 })
 
-app.listen(PORT, ()=> {
-    console.log("Server is running on http://locahost:" +PORT);
+app.use("/", restaurantRoute);
+
+app.listen(PORT, () => {
+    console.log("Server is runing on http://localhost:" + PORT);
 })
