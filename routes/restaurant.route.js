@@ -67,12 +67,12 @@ router.get("/restaurant/:id", (req,res)=>{
 //http://localhost:5000/restaurant/
 router.put("/restaurant/:id",(req,res)=>{
      const restaurantid = Number.parseInt(req.params.id);
-     if (req.body.constructor == Object && Object.keys(req.body).length ===0) {
+     if (req.body.constructor === Object && Object.keys(req.body).length ===0) {
         res.status(400).send({
             message:("Atrributes can not be empty ")
         })   
     }
-    Restaurant.updateByid(restaurantid, new Restaurant(req.body),(err, data)=>{
+    Restaurant.updateByid(restaurantid, new Restaurant(req.body), (err,data)=>{
         if (err) {
             if (err.kind === "not_found") {
                 res.status(400).send({

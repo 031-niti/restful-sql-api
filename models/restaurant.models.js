@@ -79,7 +79,7 @@ Restaurant.updateByid = (id, restaurant, result) =>{
             result ({kind: "not_found"}, null)
             return;
         }
-        result(null, {id: id,...restaurant});
+        result(null, {id: id, ...restaurant});
     });
 };
 
