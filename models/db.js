@@ -1,24 +1,21 @@
-//ดึงตัวเสริม
-const mysql = require('mysql');
-
-//ดึงไฟล์มา
+const {Sequelize} = require("sequelize");
 const dbconfig = require("../config/db.config");
 
-//สร้าง connection database ดึงจาก dbconfig
-const connection = mysql.createConnection({
-    host : dbconfig.HOST,
-    user : dbconfig.USER,
-    password : dbconfig.PASSWORD,
-    database : dbconfig.DB
-});
+//Create sequelize instance
+const sequelize = new Sequelize(dbconfig.DB, dbconfig.USER, dbconfig.PASSWORD, {
+    host:dbconfig.HOST,
+    dialect:"mysql"
+})
 
-//Open Mysql Connect
-connection.connect(
-    (error) => {
-        if (error) throw error; 
-        console.log("successfully connection to the database...");
-        
+//Tset database connection
+async function testConnection(){
+    try {
+    await sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+    } catch (error) {
+    console.error('Unable to connect to the database:', error);
     }
-);
+}
 
-module.exports = connection;
+testConnection();
+module.exports = sequelize;
