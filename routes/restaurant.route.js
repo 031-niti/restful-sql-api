@@ -17,9 +17,7 @@ router.post("/restaurant",async (req,res)=>{
 
 //Get all Restaurant
 //http://localhost:5000/restaurant
-router.get("/restaurant",async (req,res)=>{
-    
-})
+
 
 //Get ById Restaurant
 //http://localhost:5000/restaurant/
