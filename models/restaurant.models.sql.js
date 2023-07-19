@@ -86,7 +86,7 @@ Restaurant.updateByid = (id, restaurant, result) =>{
 //Delete Restaurant byID
 Restaurant.delete = (restaurantid, result) =>{
     //DELETE FROM restaurant 
-    sql.query (`DELETE FROM restaurant WHERE id = ${restaurantid}`,(err,res)=>{
+    sql.query (`DELETE FROM restaurants WHERE id = ${restaurantid}`,(err,res)=>{
         if(err){
                 console.log("err", err);
                 result(err, null);
