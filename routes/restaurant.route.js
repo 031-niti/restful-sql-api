@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Restaurant = require("../models/restaurant.models");
+const Restaurant = require("../models/restaurant.models.sql");
 
 //Insert restaurant to database
 //http://localhost:5000/restaurant
@@ -63,7 +63,7 @@ router.get("/restaurant/:id", (req,res)=>{
     })
 });
 
-//Update Restaurant byID
+//Update byID Restaurant 
 //http://localhost:5000/restaurant/
 router.put("/restaurant/:id",(req,res)=>{
      const restaurantid = Number.parseInt(req.params.id);
@@ -86,11 +86,9 @@ router.put("/restaurant/:id",(req,res)=>{
             }
         }
     })
-})
+});
 
-
-
-//Delete Restaurant
+//Delete byID Restaurant 
 //http://localhost:5000/restaurant/
 router.delete("/restaurant/:id",(req,res)=>{
     const restaurantid = Number.parseInt(req.params.id);
@@ -112,6 +110,6 @@ router.delete("/restaurant/:id",(req,res)=>{
             });
         }
     })
-})
+});
 
 module.exports = router;
