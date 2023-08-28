@@ -5,8 +5,8 @@
 
 * **Dependencies :** cors ,express ,mysql ,mysql2 ,nodemon ,sequelize
 * **Requirements :** 
-    1. [Node.js](https://nodejs.org/en) 
-    2. [npm](https://www.npmjs.com/)
+     [Node.js](https://nodejs.org/en) 
+     [npm](https://www.npmjs.com/)
 
 ---
 * **Run Server :**  
