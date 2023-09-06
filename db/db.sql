@@ -45,8 +45,7 @@ INSERT INTO `restaurants` (`id`, `name`, `type`, `imageURL`, `createdAt`, `updat
 (2, 'ขาหมูมนตรี - บางกรวย ไทรน้อย', 'ข้าว', 'https://d1sag4ddilekf6.cloudfront.net/compressed_webp/merchants/3-CZLHGPCYR3CJLA/hero/1d410a7e4cfc4c658cda2b5103a0b99a_1598936609087371387.webp', NULL, '2023-07-27'),
 (3, 'ข้าวเหนียวมะม่วง (Kao Niew Ma Muang chef Ple) - GrabKitchen พระราม 9', 'ของหวาน', 'https://d1sag4ddilekf6.cloudfront.net/compressed_webp/merchants/3-C4CBJALXG7CTJ2/hero/7bd88ed2da344520b055e5fa463d001f_1684229633973140264.webp', NULL, NULL),
 (4, 'ไข่หวานบ้านซูชิ - ฟู้ดวิลล่า ราชพฤกษ์', 'ชูชิ', 'https://d1sag4ddilekf6.cloudfront.net/compressed_webp/merchants/3-C2TVE2NBFCNAAX/hero/f3d8b187159849728e48eb2edc72b859_1635730021725058206.webp', NULL, NULL),
-(5, 'ก๋วยเตี๋ยวต้มยำไทยเฮง - ถนนบางศรีเมือง 1', 'ก๋วยเตี๋ยว', 'https://d1sag4ddilekf6.cloudfront.net/compressed_webp/merchants/3-C2BBJEKGKEAGTX/hero/dc8a8066891640dbb8763da81bbcb04e_1602480094586992766.webp', NULL, NULL),
-(12, 'asdasda', 'sdasdasdasdasd', 'asdasdasd', '2023-07-27', '2023-07-27');
+(5, 'ก๋วยเตี๋ยวต้มยำไทยเฮง - ถนนบางศรีเมือง 1', 'ก๋วยเตี๋ยว', 'https://d1sag4ddilekf6.cloudfront.net/compressed_webp/merchants/3-C2BBJEKGKEAGTX/hero/dc8a8066891640dbb8763da81bbcb04e_1602480094586992766.webp', NULL, NULL);
 
 --
 -- Indexes for dumped tables
