@@ -37,7 +37,6 @@ Restaurant.sync({ force: false })
     })
     .catch((error)=>{
         console.log("error creating table:", error);
-    });
-
+    }); 
 
 module.exports = Restaurant;
