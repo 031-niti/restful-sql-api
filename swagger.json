@@ -8,6 +8,7 @@
   "paths": {
     "/api/auth/signin": {
       "post": {
+        "tags": ["SignIn & SignUp"],
         "description": "Sign in to Grab Restaurant",
         "parameters":[{
             "name":"body",
@@ -61,12 +62,19 @@
                 }
               }
             }
+          },
+          "401": {
+            "description": "User not found!"
+          },
+          "404": {
+            "description": "Invalid Password"
           }
         }
       }
     },
     "/api/auth/signup": {
       "post": {
+        "tags": ["SignIn & SignUp"],
         "description": "Sign up to Grab Restaurant",
         "parameters":[{
             "name":"body",
@@ -116,15 +124,105 @@
     },
     "/restaurant":{
         "get":{
-            "description": "GetAll Grab Restaurant"
-        },
-        "post":{
-            "description": "Create New Restaurant "
+            "tags": ["Restaurants"],
+            "description": "GetAll Grab Restaurant ",
+            "responses": {
+          "200": {
+            "description": "Successfully GetAll Grab Restaurant  ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "imageURL": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to Get All Restaurant"
+          }
         }
-        
+      },
+        "post": {
+        "tags": ["Restaurants"],
+        "description": "Create Grab Restaurant",
+        "parameters":[{
+            "name":"body",
+            "in":"body",
+            "required":"true",
+            "schema":{
+                "type":"object",
+                "properties":{
+                    "id":{
+                      "type":"number",
+                      "description": "Unique ID for the restaurant. Ensure it's not already in use."
+                    },
+                    "name":{"type":"string"},
+                    "type":{"type":"string"},
+                    "imageURL":{"type":"string"}
+                }
+                }
+            }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully Create Grab Restaurant",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "imageURL": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Failed to Create Restaurant"
+          }
+        }
+      }  
     },
     "/restaurant/{id}":{
         "get":{
+        "tags": ["Restaurants"],
             "description": "Get Grab Restaurant ById",
             "parameters":[{
                 "name":"id",
@@ -164,19 +262,46 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Restaurant not found"
+          },
+          "500": {
+            "description": "Failed to Get Restaurant data"
           }
         }
         },
         "put":{
+            "tags": ["Restaurants"],
             "description": "Update Restaurant ById",
-            "parameters":[{
-                "name":"id",
-                "in":"path",
-                "required":"true",
-                "schema":{
-                    "type":"body"
+            "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the restaurant to update",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Restaurant object to update",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "imageURL": {
+                  "type": "string"
                 }
-            }],
+              }
+            }
+          }],
             "responses": {
           "200": {
             "description": "Successfully Update Grab Restaurant ById ",
@@ -207,11 +332,64 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Restaurant not found"
+          },
+          "500": {
+            "description": "Failed to Update Restaurant data"
           }
         }
         },
         "delete":{
-            "description": "Delete Restaurant"
+            "tags": ["Restaurants"],
+            "description": "Delete Restaurant ById",
+            "parameters":[{
+                "name":"id",
+                "in":"path",
+                "required":"true",
+                "schema":{
+                    "type":"integer"
+                }
+            }],
+            "responses": {
+          "200": {
+            "description": "Successfully Delete Restaurant ById ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "imageURL": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Restaurant not found"
+          },
+          "500": {
+            "description": "Failed to delete Restaurant data"
+          }
+        }
         }
     }
   }
