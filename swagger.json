@@ -42,9 +42,7 @@
                     },
                     "roles": {
                       "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
+                      "items": {"type": "string"}
                     },
                     "accessToken": {
                       "type": "string"
@@ -54,9 +52,7 @@
                         "id": 1,
                         "username": "username",
                         "email": "email",
-                        "roles": [
-                            "ROLES_USER"
-                        ],
+                        "roles": ["ROLES"],
                         "accessToken": "eyJhbGci...lJmKyeECo"
                     }
                 }
