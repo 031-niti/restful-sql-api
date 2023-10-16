@@ -4,8 +4,8 @@ const db = require("../models");
 const User = db.user;
 
 verifyToken = (req,res,next) => {
-    let token = req.header['x-access-token'];
-    if (token) {
+    let token = req.headers['x-access-token'];
+    if (!token) {
         return res.status(403).send({message:"no token provided!!"});
     }
     jwt.verify(token, config.secret, (err,decode)=>{
@@ -19,9 +19,9 @@ verifyToken = (req,res,next) => {
 
 isAdmin = (req,res,next) => {
     //SELECT * FROM user WHERE id = req.userId
-    User.findByPk(req.userId).then (user =>{
+    User.findByPk(req.userId).then ((user) =>{
         //SELECT * FROM roles WHERE  = 
-        user.getRoles().then (roles => {
+        user.getRoles().then ((roles) => {
             for (let i=0; i<roles.length; i++){
                 if (roles[i].name === "admin") {
                     next();
@@ -53,9 +53,9 @@ isModerator = (req,res,next) => {
 
 isModeratorOrAdmin = (req,res,next) => {
     //SELECT * FROM user WHERE id = req.userId
-    User.findByPk(req.userId).then (user =>{
+    User.findByPk(req.userId).then ((user) =>{
         //SELECT * FROM roles WHERE  = 
-        user.getRoles().then (roles => {
+        user.getRoles().then ((roles) => {
             for (let i=0; i<roles.length; i++){
                 if (roles[i].name === "moderator") {
                     next();

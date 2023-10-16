@@ -1,6 +1,8 @@
 const express = require ("express");
 const router = express.Router();
 const Restaurant = require ("../controllers/restaurant.con");
+const authJwt = require("../middieware/auth.jwt");
+
 
 //Create New Restaurant
 //http://localhost:5000/restaurant
@@ -16,7 +18,7 @@ router.post("/restaurant",async (req,res)=>{
 
 //Get all Restaurant
 //http://localhost:5000/restaurant
-router.get("/restaurant",async (req,res)=>{
+router.get("/restaurant", async (req,res) =>{
     try {
         const restaurants = await Restaurant.getAll();
         res.status(200).json(restaurants);
@@ -27,7 +29,7 @@ router.get("/restaurant",async (req,res)=>{
 
 //Get ById Restaurant
 //http://localhost:5000/restaurant/
-router.get("/restaurant/:id", async(req,res)=>{
+router.get("/restaurant/:id",[authJwt.verifyToken], async (req,res) => {
     try {
         const restaurantId = req.params.id;
         const restaurant = await Restaurant.getById(restaurantId);
@@ -43,7 +45,7 @@ router.get("/restaurant/:id", async(req,res)=>{
 
 //Update Restaurant byID
 //http://localhost:5000/restaurant/
-router.put("/restaurant/:id",async (req,res)=>{
+router.put("/restaurant/:id",[authJwt.verifyToken,authJwt.isAdmin], async (req,res)=>{
     try {
         const restaurantId = req.params.id;
         const restaurantData = req.body;

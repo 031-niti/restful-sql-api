@@ -64,7 +64,7 @@ exports.signin = (req,res) => {
                 expiresIn: 86400, 
             });
         let authoriities =[];
-        user.getRoles().then(roles =>{
+        user.getRoles().then((roles) =>{
             for (let i=0; i < roles.length; i++){
                 authoriities.push("ROLES_"+roles[i].name.toUpperCase());
             }
