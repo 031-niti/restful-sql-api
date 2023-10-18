@@ -23,19 +23,28 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize= sequelize;
 
-//require พร้อมส่งค่าพารามิเตอร์ไปในตัว
+//สร้าง connection
 db.user = require("./user.model")(sequelize, Sequelize);
 db.role = require("./role.model")(sequelize, Sequelize);
+db.refreshToken = require("./refreshToken.model")(sequelize, Sequelize);
 
-// 1 - M
-
+// M-M = Many To Many
 db.role.belongsToMany(db.user,{
     through:"users_roles"
 });
-
 db.user.belongsToMany(db.role,{
     through:"users_roles"
 });
+
+// 1-1 = one To one 
+db.refreshToken.belongsTo(db.user,{
+    foreignKey:"userId",
+    targetKey:"id"  
+})
+db.user.hasOne(db.refreshToken, {
+    foreignKey: "userId",
+    targetKey: "id" 
+})
 
 db.ROLES=["user", "admin", "moderator"]
 

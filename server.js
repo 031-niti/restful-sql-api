@@ -7,10 +7,10 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 //dev mode
-//db.sequelize.sync({force:true}).then(()=>{
-   //console.log('Drop and resync DB');
-  //initial();
-//})
+// db.sequelize.sync({force:true}).then(()=>{
+//    console.log('Drop and resync DB');
+//   initial();
+// })
 
 function initial() {
     role.create({

@@ -3,7 +3,6 @@ const router = express.Router();
 const Restaurant = require ("../controllers/restaurant.con");
 const authJwt = require("../middieware/auth.jwt");
 
-
 //Create New Restaurant
 //http://localhost:5000/restaurant
 router.post("/restaurant",async (req,res)=>{

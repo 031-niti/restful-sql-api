@@ -1,7 +1,9 @@
 const db = require("../models")
 const config = require ("../config/auth.config")
-const User = db.user;
-const Role = db.role;
+const {user:User, role:Role, refreshToken:RefreshToken } = db;
+// const User = db.user;
+// const Role = db.role;
+// const RefreshToken = db.refreshToken;
 const jwt = require("jsonwebtoken");
 const bcrypt = require ("bcryptjs");
 const Op = db.Sequelize.Op;
@@ -36,16 +38,16 @@ exports.signup = (req,res) => {
     .catch((err)=>{
         res.state(500).send({message: "err.message"});
     });
-}
+};
 
 //SignIn
-exports.signin = (req,res) => {
+exports.signin =  (req,res) => {
     //SELECT * FROM username WHERE username = req.body.username
     User.findOne({
         where:{
             username: req.body.username
         }
-    }).then(user =>{
+    }).then(async user =>{
         if(!user){
             return res.status(404).send({message: "User not found!"})
         }
@@ -61,8 +63,9 @@ exports.signin = (req,res) => {
             {
                 algorithm:"HS256",
                 allowInsecureKeySizes:true,
-                expiresIn: 86400, 
+                expiresIn: config.jwtExpiration, 
             });
+        const refreshToken = await RefreshToken.createToken(user);
         let authoriities =[];
         user.getRoles().then((roles) =>{
             for (let i=0; i < roles.length; i++){
@@ -72,10 +75,54 @@ exports.signin = (req,res) => {
                 username:user.username, 
                 email:user.email, 
                 roles:authoriities, 
-                accessToken: token 
+                accessToken: token,
+                refreshToken:refreshToken,
             })
         });
     }).catch(err =>{
         res.status(500).send({message: err.message})
     })
 };
+
+exports.refreshToken = async (req, res) => {
+    const {refreshToken:requestToken} = req.body;
+    //check is refresh token is provided 
+    //ส่งมาไหม
+    if (requestToken == null) {
+        return res.status(403).json({ message:"Refresh Token is require" })
+    }
+    try {
+        let refreshToken = await RefreshToken.findOne({
+            where:{
+                token: requestToken,
+            },
+        })
+        //If refresh token existed is database 
+        //มีใน database ไหม
+        if (!refreshToken) {
+            res.status(403).json({ message: "Refresh Token is not in Database!" })
+            return;
+        }
+        //If refresh token is expired 
+        //หมดอายุไหม
+        if (RefreshToken.verifyExpiration(refreshToken)) {
+            RefreshToken.destroy({where:{ id:refreshToken.id } });
+            res.status(403).json({ message: "Refresh Token was expired. Please make a new signin request" });
+            return;
+        }
+        const user = await refreshToken.getUser();
+        let newAccessToken = token = jwt.sign({ id: user.id },config.secret,{
+                algorithm: "HS256",
+                allowInsecureKeySizes: true,
+                expiresIn: config.jwtExpiration,
+            });
+            return res.status(200).json({
+                accessToken:newAccessToken,
+                refreshToken:refreshToken.token
+            })
+
+    } catch (error) {
+        return res.status(500).send({ message: error });
+    }
+};
+
